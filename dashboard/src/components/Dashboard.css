@@ -1,0 +1,140 @@
+.dashboard {
+  margin-bottom: 2rem;
+}
+
+.dashboard-title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #00d4ff 0%, #9d4edd 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.metric-card {
+  background: linear-gradient(135deg, #1e2442 0%, #2d3561 100%);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid #4a5899;
+  display: flex;
+  gap: 1rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.metric-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0, 212, 255, 0.3);
+}
+
+.metric-icon {
+  font-size: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.metric-content {
+  flex: 1;
+}
+
+.metric-content h3 {
+  font-size: 0.9rem;
+  color: #a0aec0;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metric-value {
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #00d4ff 0%, #9d4edd 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.3rem;
+}
+
+.metric-subtitle {
+  font-size: 0.85rem;
+  color: #718096;
+}
+
+.apy-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-top: 0.5rem;
+}
+
+.apy-item {
+  font-size: 0.8rem;
+  color: #a0aec0;
+  padding: 0.2rem 0.5rem;
+  background: rgba(0, 212, 255, 0.1);
+  border-radius: 4px;
+  display: inline-block;
+  width: fit-content;
+}
+
+.apy-item.sovereign {
+  background: rgba(157, 78, 221, 0.2);
+  color: #e9d5ff;
+}
+
+.resonance-bar {
+  width: 100%;
+  height: 8px;
+  background: #2d3561;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 0.5rem 0;
+}
+
+.resonance-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00d4ff 0%, #9d4edd 100%);
+  transition: width 0.5s ease;
+}
+
+.governance-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #a0aec0;
+}
+
+.sovereign-badge {
+  background: linear-gradient(135deg, #9d4edd 0%, #c77dff 100%);
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(157, 78, 221, 0.3);
+}
+
+.badge-icon {
+  font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .metric-value {
+    font-size: 1.5rem;
+  }
+}
