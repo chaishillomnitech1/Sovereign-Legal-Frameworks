@@ -1,5 +1,9 @@
 # Siemens Energy MoU - Recursive Language Model Integration
 
+> **STRATEGIC PLANNING DOCUMENT**  
+> This is a forward-looking strategic planning document created for architectural and design purposes.  
+> All dates, partnerships, and specifications are part of a conceptual framework for future development.
+
 ## Executive Summary
 
 This Memorandum of Understanding (MoU) establishes a collaborative framework between Siemens Energy and the Sovereign Legal Frameworks ecosystem for integrating Recursive Language Model (RLM) structures to ensure dynamic alignment with 963 Hz cycle adjustments.

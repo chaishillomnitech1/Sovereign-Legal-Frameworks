@@ -1,5 +1,9 @@
 # Strategic Initiative Documentation
 
+> **STRATEGIC PLANNING DOCUMENTS**  
+> This directory contains forward-looking strategic planning documents created for architectural and design purposes.  
+> All dates, partnerships, technical specifications, and implementation plans are part of conceptual frameworks for future development.
+
 This directory contains comprehensive documentation for advanced strategic initiatives within the Sovereign Legal Frameworks ecosystem.
 
 ## 📋 Documents Overview

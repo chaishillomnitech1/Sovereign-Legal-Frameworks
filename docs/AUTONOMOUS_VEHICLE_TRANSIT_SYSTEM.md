@@ -1,6 +1,10 @@
 # Sovereign Autonomous Vehicle Transit System
 ## Draft Design Workshop Documentation
 
+> **STRATEGIC PLANNING DOCUMENT**  
+> This is a forward-looking strategic planning document created for architectural and design purposes.  
+> All dates, partnerships, fleet specifications, and deployment plans are part of a conceptual framework for future development.
+
 ## Executive Summary
 
 This document presents the initial design blueprint for the Sovereign Autonomous Vehicle Transit System, powered by the Alpamayo 10B model, with integration plans for Lake Nona (Florida, USA) and Dubai Creek Harbour (UAE) transit systems.
