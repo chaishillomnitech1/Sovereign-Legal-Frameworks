@@ -17,7 +17,8 @@ describe("FrequencyStakingEngine", function () {
 
     // Deploy HEAL Token
     const HealToken = await ethers.getContractFactory("HealToken");
-    healToken = await HealToken.deploy(INITIAL_SUPPLY.div(ethers.utils.parseEther("1")));
+    const initialSupply = 1000000000; // 1 billion tokens
+    healToken = await HealToken.deploy(initialSupply);
     await healToken.deployed();
 
     // Deploy Staking Engine
@@ -221,8 +222,12 @@ describe("FrequencyStakingEngine", function () {
 
   describe("Access Control", function () {
     it("Should allow owner to set sovereign participant", async function () {
+      await healToken.connect(addr1).approve(stakingEngine.address, STAKE_AMOUNT);
+      await stakingEngine.connect(addr1).stake(STAKE_AMOUNT);
+      
       await stakingEngine.setSovereignParticipant(addr1.address, true);
-      expect(await stakingEngine.sovereignParticipants(addr1.address)).to.equal(true);
+      const stakeInfo = await stakingEngine.getStakeInfo(addr1.address);
+      expect(stakeInfo.isSovereignParticipant).to.equal(true);
     });
 
     it("Should prevent non-owner from setting sovereign participant", async function () {

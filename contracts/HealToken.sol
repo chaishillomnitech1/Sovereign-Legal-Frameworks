@@ -10,6 +10,7 @@ contract HealToken {
     string public constant symbol = "HEAL";
     uint8 public constant decimals = 18;
     uint256 public totalSupply;
+    address public owner;
 
     mapping(address => uint256) public balanceOf;
     mapping(address => mapping(address => uint256)) public allowance;
@@ -17,7 +18,13 @@ contract HealToken {
     event Transfer(address indexed from, address indexed to, uint256 value);
     event Approval(address indexed owner, address indexed spender, uint256 value);
 
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Not authorized");
+        _;
+    }
+
     constructor(uint256 _initialSupply) {
+        owner = msg.sender;
         totalSupply = _initialSupply * 10**decimals;
         balanceOf[msg.sender] = totalSupply;
         emit Transfer(address(0), msg.sender, totalSupply);
@@ -53,7 +60,7 @@ contract HealToken {
         return true;
     }
 
-    function mint(address to, uint256 amount) external {
+    function mint(address to, uint256 amount) external onlyOwner {
         require(to != address(0), "Invalid address");
         totalSupply += amount;
         balanceOf[to] += amount;

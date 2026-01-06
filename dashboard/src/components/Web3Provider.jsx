@@ -74,6 +74,7 @@ function Web3Provider({ setAccount, setContract, setTokenContract, setWeb3 }) {
   const [isConnecting, setIsConnecting] = useState(false);
   const [error, setError] = useState('');
   const [connected, setConnected] = useState(false);
+  const [connectedAccount, setConnectedAccount] = useState(null);
 
   // For demo purposes - these would be actual deployed contract addresses
   const STAKING_CONTRACT_ADDRESS = '0x0000000000000000000000000000000000000000';
@@ -84,6 +85,13 @@ function Web3Provider({ setAccount, setContract, setTokenContract, setWeb3 }) {
     setError('');
 
     try {
+      // Check if contract addresses are configured
+      if (STAKING_CONTRACT_ADDRESS === '0x0000000000000000000000000000000000000000') {
+        setError('Contract addresses not configured. Please deploy contracts and update Web3Provider.jsx');
+        setIsConnecting(false);
+        return;
+      }
+
       if (typeof window.ethereum !== 'undefined') {
         const web3Instance = new Web3(window.ethereum);
         await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -104,6 +112,7 @@ function Web3Provider({ setAccount, setContract, setTokenContract, setWeb3 }) {
 
         setWeb3(web3Instance);
         setAccount(account);
+        setConnectedAccount(account);
         setContract(stakingContract);
         setTokenContract(tokenContract);
         setConnected(true);
@@ -133,7 +142,7 @@ function Web3Provider({ setAccount, setContract, setTokenContract, setWeb3 }) {
           <div className="connected-info">
             <span className="status-indicator"></span>
             <span className="account-address">
-              {`${setAccount?.slice(0, 6)}...${setAccount?.slice(-4)}`}
+              {connectedAccount ? `${connectedAccount.slice(0, 6)}...${connectedAccount.slice(-4)}` : 'Connected'}
             </span>
           </div>
         )}

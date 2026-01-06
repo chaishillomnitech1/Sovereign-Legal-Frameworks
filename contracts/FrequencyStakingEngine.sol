@@ -40,7 +40,6 @@ contract FrequencyStakingEngine {
     uint256 public rewardsPool;
     
     mapping(address => StakeInfo) public stakes;
-    mapping(address => bool) public sovereignParticipants;
     
     // Reentrancy guard
     bool private locked;
@@ -169,7 +168,6 @@ contract FrequencyStakingEngine {
      * @param status Whether user is a sovereign participant
      */
     function setSovereignParticipant(address user, bool status) external onlyOwner {
-        sovereignParticipants[user] = status;
         stakes[user].isSovereignParticipant = status;
 
         emit SovereignStatusUpdated(user, status);
