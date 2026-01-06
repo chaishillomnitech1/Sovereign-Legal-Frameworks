@@ -182,10 +182,19 @@ contract Phase3SovereignIntegration {
         require(targetContract != address(0), "Invalid target contract");
         
         // Execute with low-level call for fault tolerance
-        (success, ) = targetContract.call(data);
+        (success, bytes memory returnData) = targetContract.call(data);
         
         if (success) {
             faultTolerantTransactions[transactionId] = true;
+        } else {
+            // Log failure reason if available
+            if (returnData.length > 0) {
+                // Bubble up the revert reason
+                assembly {
+                    let returnDataSize := mload(returnData)
+                    revert(add(32, returnData), returnDataSize)
+                }
+            }
         }
         
         emit FaultTolerantTransactionExecuted(transactionId, success, block.timestamp);
