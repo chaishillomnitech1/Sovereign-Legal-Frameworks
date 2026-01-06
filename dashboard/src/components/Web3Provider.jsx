@@ -86,7 +86,8 @@ function Web3Provider({ setAccount, setContract, setTokenContract, setWeb3 }) {
 
     try {
       // Check if contract addresses are configured
-      if (STAKING_CONTRACT_ADDRESS === '0x0000000000000000000000000000000000000000') {
+      if (STAKING_CONTRACT_ADDRESS === '0x0000000000000000000000000000000000000000' ||
+          TOKEN_CONTRACT_ADDRESS === '0x0000000000000000000000000000000000000000') {
         setError('Contract addresses not configured. Please deploy contracts and update Web3Provider.jsx');
         setIsConnecting(false);
         return;

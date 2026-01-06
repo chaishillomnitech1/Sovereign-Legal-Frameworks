@@ -17,7 +17,7 @@ describe("FrequencyStakingEngine", function () {
 
     // Deploy HEAL Token
     const HealToken = await ethers.getContractFactory("HealToken");
-    const initialSupply = 1000000000; // 1 billion tokens
+    const initialSupply = 1000000000; // 1 billion tokens (will be multiplied by 10^18 in constructor)
     healToken = await HealToken.deploy(initialSupply);
     await healToken.deployed();
 
@@ -45,7 +45,8 @@ describe("FrequencyStakingEngine", function () {
     });
 
     it("Should have correct initial supply", async function () {
-      expect(await healToken.totalSupply()).to.equal(INITIAL_SUPPLY);
+      const expectedSupply = ethers.utils.parseEther("1000000000");
+      expect(await healToken.totalSupply()).to.equal(expectedSupply);
     });
 
     it("Should have funded rewards pool", async function () {
