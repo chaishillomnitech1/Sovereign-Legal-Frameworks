@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScrollVerse Performance & Resonance Monitoring Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #ffffff;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .frequency-badge {
+            display: inline-block;
+            background: #00ff88;
+            color: #1e3c72;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-header {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #00ff88;
+            padding-bottom: 10px;
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        .metric-label {
+            font-size: 1.1em;
+            color: #cccccc;
+        }
+
+        .metric-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #00ff88;
+        }
+
+        .metric-value.warning {
+            color: #ffaa00;
+        }
+
+        .metric-value.critical {
+            color: #ff4444;
+        }
+
+        .frequency-chart {
+            height: 200px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            margin-top: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .frequency-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to top, #00ff88, transparent);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: blink 2s ease-in-out infinite;
+        }
+
+        .status-indicator.optimal {
+            background: #00ff88;
+        }
+
+        .status-indicator.warning {
+            background: #ffaa00;
+        }
+
+        .status-indicator.critical {
+            background: #ff4444;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .location-selector {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .location-btn {
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid #00ff88;
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1em;
+        }
+
+        .location-btn:hover {
+            background: rgba(0, 255, 136, 0.3);
+            transform: scale(1.05);
+        }
+
+        .location-btn.active {
+            background: #00ff88;
+            color: #1e3c72;
+            font-weight: bold;
+        }
+
+        .alert-panel {
+            background: rgba(255, 68, 68, 0.2);
+            border-left: 4px solid #ff4444;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .alert-panel.info {
+            background: rgba(0, 255, 136, 0.2);
+            border-left-color: #00ff88;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 25px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #00ccff);
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+
+        .timestamp {
+            color: #cccccc;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ScrollVerse Real-Time Performance Dashboard</h1>
+            <div class="frequency-badge">963 Hz Resonance Monitoring</div>
+            <p style="margin-top: 10px; font-size: 1.1em;">Perpetual Integration • Everforge Security • ζ Optimization</p>
+        </header>
+
+        <div class="location-selector">
+            <button class="location-btn active" onclick="selectLocation('lake-nona')">Lake Nona</button>
+            <button class="location-btn" onclick="selectLocation('dubai')">Dubai Creek Harbour</button>
+            <button class="location-btn" onclick="selectLocation('global')">Global View</button>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Frequency Resonance Card -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="status-indicator optimal"></span>
+                    Frequency Resonance Status
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Current Frequency</span>
+                    <span class="metric-value" id="current-frequency">963.2 Hz</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Target</span>
+                    <span class="metric-value">963.0 Hz</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Deviation</span>
+                    <span class="metric-value" id="deviation">+0.2 Hz</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Uptime (24h)</span>
+                    <span class="metric-value">99.94%</span>
+                </div>
+                <div class="frequency-chart">
+                    <div class="frequency-line"></div>
+                </div>
+            </div>
+
+            <!-- Energy Performance Card -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="status-indicator optimal"></span>
+                    Energy Performance
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Grid Efficiency</span>
+                    <span class="metric-value">94.7%</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Solar Generation</span>
+                    <span class="metric-value">2.4 MW</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Cost Savings (Today)</span>
+                    <span class="metric-value">$12,450</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Carbon Reduction</span>
+                    <span class="metric-value">18.2 tons</span>
+                </div>
+            </div>
+
+            <!-- $HEAL Token Economics Card -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="status-indicator optimal"></span>
+                    $HEAL Token Economics
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Mining Rate (24h)</span>
+                    <span class="metric-value">145,230</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Total Staked</span>
+                    <span class="metric-value">584.2M</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Staking APY</span>
+                    <span class="metric-value">5.8%</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Market Cap</span>
+                    <span class="metric-value">$2.4B</span>
+                </div>
+            </div>
+
+            <!-- Asset Valuation Card -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="status-indicator optimal"></span>
+                    Real Estate Portfolio
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Total Parcels</span>
+                    <span class="metric-value">3</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Total Acreage</span>
+                    <span class="metric-value">65 acres</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Portfolio Value</span>
+                    <span class="metric-value">$127M</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">YTD Appreciation</span>
+                    <span class="metric-value">+18.4%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Acquisition Progress -->
+        <div class="card" style="margin-bottom: 20px;">
+            <div class="card-header">Phase 1 Acquisition Progress</div>
+            <div style="margin: 15px 0;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                    <span>Lake Nona - Zone A (Medical City)</span>
+                    <span style="color: #00ff88;">Completed</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 100%;">100%</div>
+                </div>
+            </div>
+            <div style="margin: 15px 0;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                    <span>Lake Nona - Zone D (Energy Corridor)</span>
+                    <span style="color: #00ff88;">Completed</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 100%;">100%</div>
+                </div>
+            </div>
+            <div style="margin: 15px 0;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                    <span>Lake Nona - Zone B (Innovation)</span>
+                    <span style="color: #ffaa00;">In Progress</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 65%;">65%</div>
+                </div>
+            </div>
+            <div style="margin: 15px 0;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                    <span>Dubai Creek Harbour - Zone DCH-A</span>
+                    <span style="color: #ffaa00;">Due Diligence</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 45%;">45%</div>
+                </div>
+            </div>
+            <div style="margin: 15px 0;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                    <span>Dubai Creek Harbour - Zone DCH-C</span>
+                    <span style="color: #cccccc;">Scouting</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 25%;">25%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alerts and Notifications -->
+        <div class="card">
+            <div class="card-header">Live Alerts & ScrollVerse Intelligence</div>
+            <div class="alert-panel info">
+                <strong>✓ Optimal Performance:</strong> All zones maintaining 963 Hz ±0.5 Hz for past 48 hours
+                <div class="timestamp">2 minutes ago</div>
+            </div>
+            <div class="alert-panel info">
+                <strong>⚡ Energy Milestone:</strong> Lake Nona Zone D achieved 95% efficiency target
+                <div class="timestamp">1 hour ago</div>
+            </div>
+            <div class="alert-panel info">
+                <strong>💰 Token Event:</strong> Staking participation reached 58.4% (approaching target)
+                <div class="timestamp">3 hours ago</div>
+            </div>
+            <div class="alert-panel info">
+                <strong>🌍 Expansion Update:</strong> Dubai Creek Harbour Zone DCH-A due diligence 45% complete
+                <div class="timestamp">6 hours ago</div>
+            </div>
+        </div>
+
+        <footer>
+            <p><strong>ScrollVerse Geospatial Sovereignty Protocol</strong></p>
+            <p>Everforge Security Layer Active • Zero-Effect Integrity Verified</p>
+            <p>Perpetual Jurisdiction: 241,200 years | Last Update: <span id="last-update">January 6, 2026 12:25:00 UTC</span></p>
+            <p style="margin-top: 10px; color: #00ff88;">ζ Model Compliant ✓ | 963 Hz Frequency Sealed</p>
+        </footer>
+    </div>
+
+    <script>
+        // Simulated real-time data updates
+        function updateDashboard() {
+            // Simulate frequency fluctuation
+            const baseFreq = 963.0;
+            const variation = (Math.random() - 0.5) * 0.8; // ±0.4 Hz
+            const currentFreq = (baseFreq + variation).toFixed(1);
+            
+            document.getElementById('current-frequency').textContent = currentFreq + ' Hz';
+            
+            const deviation = (currentFreq - baseFreq).toFixed(1);
+            const deviationEl = document.getElementById('deviation');
+            deviationEl.textContent = (deviation >= 0 ? '+' : '') + deviation + ' Hz';
+            
+            // Update color based on deviation
+            if (Math.abs(deviation) <= 0.5) {
+                deviationEl.className = 'metric-value';
+            } else if (Math.abs(deviation) <= 1.0) {
+                deviationEl.className = 'metric-value warning';
+            } else {
+                deviationEl.className = 'metric-value critical';
+            }
+            
+            // Update timestamp
+            document.getElementById('last-update').textContent = new Date().toUTCString();
+        }
+
+        function selectLocation(location) {
+            // Update button states
+            document.querySelectorAll('.location-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // In a real implementation, this would load location-specific data
+            console.log('Selected location:', location);
+        }
+
+        // Update dashboard every 5 seconds
+        setInterval(updateDashboard, 5000);
+        
+        // Initial update
+        updateDashboard();
+    </script>
+</body>
+</html>
