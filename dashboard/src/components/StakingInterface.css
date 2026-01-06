@@ -1,0 +1,244 @@
+.staking-interface {
+  margin-top: 2rem;
+}
+
+.interface-title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #00d4ff 0%, #9d4edd 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.message {
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.message.success {
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #6ee7b7;
+}
+
+.message.error {
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #fca5a5;
+}
+
+.interface-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.action-card {
+  background: linear-gradient(135deg, #1e2442 0%, #2d3561 100%);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid #4a5899;
+}
+
+.action-card.full-width {
+  grid-column: 1 / -1;
+}
+
+.card-header {
+  margin-bottom: 1.5rem;
+}
+
+.card-header h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+.card-header p {
+  color: #a0aec0;
+  font-size: 0.9rem;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #2d3561;
+  border-radius: 8px;
+  border: 2px solid #4a5899;
+  padding: 0.5rem 1rem;
+  transition: border-color 0.2s;
+}
+
+.input-group:focus-within {
+  border-color: #00d4ff;
+}
+
+.input-group input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  outline: none;
+}
+
+.input-group input::placeholder {
+  color: #718096;
+}
+
+.input-group input:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.input-label {
+  color: #a0aec0;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.action-button {
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  color: white;
+}
+
+.action-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.action-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.stake-button {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.stake-button:hover:not(:disabled) {
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+}
+
+.unstake-button {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+.unstake-button:hover:not(:disabled) {
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+}
+
+.claim-button {
+  background: linear-gradient(135deg, #00d4ff 0%, #9d4edd 100%);
+  font-size: 1.2rem;
+  padding: 1.2rem;
+}
+
+.claim-button:hover:not(:disabled) {
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+}
+
+.info-box {
+  background: rgba(0, 212, 255, 0.05);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.info-title {
+  font-weight: 600;
+  color: #00d4ff;
+  margin-bottom: 0.5rem;
+}
+
+.info-text {
+  color: #a0aec0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.info-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.info-list li {
+  padding: 0.3rem 0;
+  color: #a0aec0;
+  font-size: 0.9rem;
+}
+
+.info-highlight {
+  color: #00d4ff;
+  font-weight: 600;
+}
+
+.frequency-info {
+  background: linear-gradient(135deg, #1e2442 0%, #2d3561 100%);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid #4a5899;
+}
+
+.frequency-info h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+.frequency-info > p {
+  color: #a0aec0;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.frequency-benefits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: rgba(0, 212, 255, 0.1);
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+.benefit-icon {
+  font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .interface-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .frequency-benefits {
+    grid-template-columns: 1fr;
+  }
+}

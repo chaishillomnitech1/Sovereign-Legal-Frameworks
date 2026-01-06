@@ -1,0 +1,77 @@
+.web3-provider {
+  background: #1e2442;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.wallet-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.connect-button {
+  background: linear-gradient(135deg, #00d4ff 0%, #9d4edd 100%);
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.connect-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+}
+
+.connect-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.connected-info {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: #2d3561;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #4a5899;
+}
+
+.status-indicator {
+  width: 10px;
+  height: 10px;
+  background: #10b981;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.account-address {
+  font-family: monospace;
+  color: #a0aec0;
+}
+
+.error-message {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+  padding: 0.8rem;
+  border-radius: 6px;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  text-align: center;
+}
