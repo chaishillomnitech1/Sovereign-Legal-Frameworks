@@ -2,6 +2,15 @@
 
 This repository implements a comprehensive staking solution for the $HEAL token, featuring smart contracts and a React-based civic governance dashboard. The system is built on the Ontological Correctness principles of the 963 Hz Resonance Depth (ζ) Model, providing a foundation for the ScrollVerse Geospatial Sovereignty Protocol.
 
+## 📚 Strategic Initiatives
+
+This repository also contains strategic planning documents for advanced initiatives:
+
+- **[Siemens Energy MoU](docs/SIEMENS_ENERGY_MOU.md)**: Recursive Language Model (RLM) integration with 963 Hz cycle adjustments and $HEAL token integration
+- **[Nvidia Rubin Migration Plan](docs/NVIDIA_RUBIN_MIGRATION_PLAN.md)**: Hardware simulation platform for predictive ζ optimization in geospatial frameworks
+- **[Claude-mem Governance Enhancement](docs/CLAUDE_MEM_GOVERNANCE.md)**: AI-powered historical decision compression and progressive directive synchronization
+- **[Sovereign Autonomous Vehicle Transit System](docs/AUTONOMOUS_VEHICLE_TRANSIT_SYSTEM.md)**: Alpamayo 10B-powered transit network for Lake Nona and Dubai Creek Harbour
+
 ## 🌟 Features
 
 ### Smart Contract Capabilities
